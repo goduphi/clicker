@@ -1,5 +1,6 @@
 // Get canvas
 const canvas = document.getElementById('canvas1');
+var score = 0;
 
 // Get canvas context
 const ctx = canvas.getContext('2d');
@@ -16,7 +17,7 @@ let mouse =
 // Target
 class Target
 {
-	constructor(x, y, radius, color = '#000000')
+	constructor(x, y, radius, color = 'rgba(1,1,1,0.9)')
 	{
 		this.x = x;
 		this.y = y;
@@ -46,13 +47,19 @@ window.addEventListener('mousemove',
 	}
 )
 
-// Get mouse coordinates
+// Check for mouse and target collision on mouse click
 window.addEventListener('click',
 	function(event)
 	{
 		CheckCollision();
 	}
 )
+
+function drawScore(score)
+{
+	ctx.font = "30px Arial";
+	ctx.fillText(score, 50, 60);
+}
 
 function CheckCollision()
 {
@@ -70,5 +77,7 @@ function CheckCollision()
 		target = new Target((Math.random() * (innerWidth - target.radius)), (Math.random() * (innerHeight - target.radius)), target.radius);
 		ctx.clearRect(0, 0, innerWidth, innerHeight);
 		target.drawTarget();
+		score++;
+		drawScore(score);
 	}
 }
